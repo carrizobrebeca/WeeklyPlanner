@@ -4,11 +4,40 @@ import CreateCard from "./CreateCard";
 import CardNote from "./CardNote";
 import PlannerWeekly from "./PlannerWeekly";
 import Ideas from "./Ideas";
+import CardGastos from "./CardGastos";
+import CardReminder from "./CardReminder";
+import CardIdeas from "./CardIdeas";
+import CardCalendar from "./CardCalendar";
+import PlannerFood from "./PlannerFood";
 
 const Board = () => {
   const [dateTime, setDateTime] = useState(new Date());
   const [activeTab, setActiveTab] = useState("dash");
   // Actualizar cada segundo
+
+    const phrases = [
+    "Carpe Diem.-",
+    "I learned that courage was not the absence of fear, but the triumph over it. The brave man is not he who does not feel afraid, but he who conquers that fear.- Nelson Mandela",
+    "If you believe it will work, you'll see opportunities. If you believe it won't, you will see obstacles.- Wayne Dyer",
+    "Believe you can and you're halfway there.- Theodore Roosevelt -",
+    "Learn the rules like a pro, so you can break them like an artist.- Pablo Picasso -",
+    "Do one thing every day that scares you.- Eleanor Roosevelt -",
+    "I didn't get there by wishing for it or hoping for it, but by working for it.- Estée Lauder -",
+     "Even if you are on the right track, you'll get run over if you just sit there.- Will Rogers -",
+     "Success is not final, failure is not fatal: it is the courage to continue that counts.- Winston Churchill-",
+  ];
+
+  
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % phrases.length);
+    }, 20000); // 20 segundos
+
+    return () => clearInterval(interval); // limpiar intervalo al desmontar
+  }, []);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setDateTime(new Date());
@@ -209,9 +238,8 @@ const Board = () => {
           <h2 className="text-2xl font-semibold mb-2 mt-2">
             Contenido Principal
           </h2>
-          <p className="mb-2 text-right text-2xl">
-            Aquí va el contenido principal del dashboard. El área central se
-            expande y hace scroll si el contenido es largo.
+          <p className="mb-2 text-right text-xl">
+              {phrases[index]} 
           </p>
           <div className="flex justify-start">
             <p className="mb-4">
@@ -273,19 +301,25 @@ const Board = () => {
             </div>
           )}
  {activeTab === "reminder" && (
-            <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4"></div>
+            <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4">
+              <CardReminder />
+            </div>
           )}
           {activeTab === "ideas" && (
             <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4">
 
-                 <Ideas />
+                 <CardIdeas />
             </div>
           )}
            {activeTab === "food" && (
-            <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4"></div>
+            <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4">
+              <PlannerFood />
+            </div>
           )}
            {activeTab === "gastos" && (
-            <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4"></div>
+            <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4">
+               <CardGastos />
+            </div>
           )}
            {activeTab === "notes" && (
             <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4">
@@ -297,7 +331,9 @@ const Board = () => {
             </div>
           )}
            {activeTab === "schedule" && (
-            <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4"></div>
+            <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4">
+               <CardCalendar />
+            </div>
           )}
         </main>
 

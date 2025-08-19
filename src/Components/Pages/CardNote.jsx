@@ -2,16 +2,20 @@ import React from "react";
 
 const CardNote = () => {
   return (
-    <div className="w-[450px] h-[253px] bg-white rounded-2xl text-xl">
-      <div className="p-4 border bt-4 b-green-200 grid-row items-center rounded-2xl">
-        <header className="font-bold pl-2  bg-green-200 rounded-2xl p-4">
-          Title
+    <div className="w-[450px] h-[253px] bg-white  border-t-4 border-green-200 rounded-2xl ">
+      <div className="p-4 grid-row items-center rounded-2xl">
+        <header className="flex justify-center ">
+          <h2 className="font-bold pl-2 text-xl bg-green-200 rounded-2xl p-2">Title</h2>
+          
         </header>
         <div className="">
-          <div className="bg-white grid grid-flow-col  items-center rounded-2xl p-2 m-2  ">
-            <h2>Reunion</h2>
-            <h2 className="flex justify-end items-center text-base">
-              <svg
+          <div className="bg-white grid grid-flow-col rounded-2xl p-2 m-2  ">
+           <input type="text" className="h-[100px] text-xl flex justify-center"/>
+          </div>
+         
+        </div>
+        <footer className=" flex bg-white items-right rounded-2xl p-2 gap-4">
+             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -26,13 +30,6 @@ const CardNote = () => {
                 />
               </svg>
               24/08/2025
-            </h2>
-          </div>
-          <h2 className="bg-white grid grid-flow-col  items-center rounded-2xl p-2 m-2 ">
-            Reunion
-          </h2>
-        </div>
-        <footer className=" flex bg-white items-right rounded-2xl p-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

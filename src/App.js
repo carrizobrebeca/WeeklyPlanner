@@ -19,9 +19,9 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/notes" element={<Notes />} />
         <Route path="/reminder" element={<Reminder />} />
-         <Route path="/tablero" element={<Tablero />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-             <Route path="/board" element={<Board />} />
+        <Route path="/tablero" element={<Tablero />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/board" element={<Board />} />
         <Route path="/todo" element={<ToDo />} />
         <Route path="/planner" element={<Planner />} />
         <Route path="/gastos" element={<Gastos />} />

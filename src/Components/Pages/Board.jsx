@@ -9,6 +9,8 @@ import CardReminder from "./CardReminder";
 import CardIdeas from "./CardIdeas";
 import CardCalendar from "./CardCalendar";
 import PlannerFood from "./PlannerFood";
+import NewCardReminder from "./NewCardReminder";
+import NewCardNote from "./NewCardNote";
 
 const Board = () => {
   const [dateTime, setDateTime] = useState(new Date());
@@ -233,7 +235,7 @@ const Board = () => {
         </aside>
 
         {/* CONTENT */}
-        <main className="flex-1 p-6 bg-gray-50 overflow-y-auto">
+        <main className="flex-1 p-6 bg-gray-50">
             {/* NAVBAR SM */}
           <h2 className="text-2xl font-semibold mb-2 mt-2">
             Contenido Principal
@@ -287,22 +289,24 @@ const Board = () => {
           )}
 
           {activeTab === "todo" && (
-            <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 grid grid-cols-3 gap-4">
-              <Card />
-              <Card />
-              <Card />
-            <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-             
-              <CreateCard />
-            </div>
+             <div className="w-[2100px] h-[800px]  bg-gray-100 shadow rounded-xl p-4 overflow-x-auto">
+   
+    <div className="flex gap-6 ">
+  <div className="flex-shrink-0 "><Card /></div>
+  <div className="flex-shrink-0"><Card /></div>
+  <div className="flex-shrink-0"><Card /></div>
+  <div className="flex-shrink-0"><Card /></div>
+  <div className="flex-shrink-0"><Card /></div>
+  <div className="flex-shrink-0"><CreateCard /></div>
+</div>
+  
+  </div>
           )}
  {activeTab === "reminder" && (
             <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4">
               <CardReminder />
+               <NewCardReminder />
+              
             </div>
           )}
           {activeTab === "ideas" && (
@@ -317,7 +321,7 @@ const Board = () => {
             </div>
           )}
            {activeTab === "gastos" && (
-            <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4">
+            <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 pb-4 flex justify-start gap-4  overflow-y-auto">
                <CardGastos />
             </div>
           )}
@@ -325,7 +329,7 @@ const Board = () => {
             <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4">
  <CardNote />
  <CardNote />
- <CardNote />
+ <NewCardNote />
               
 
             </div>

@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.css";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input } from "reactstrap";
 
 const CardNote = () => {
+  
+   const [open, setOpen] = useState(false); 
+  const toggle = () => setOpen(!open);
   return (
     <div className="w-[450px] h-[253px] bg-white  border-t-4 border-green-200 rounded-2xl ">
       <div className="p-4 grid-row items-center rounded-2xl">
@@ -14,7 +19,7 @@ const CardNote = () => {
           </div>
          
         </div>
-        <footer className=" flex bg-white items-right rounded-2xl p-2 gap-4">
+        <footer className=" flex bg-white items-right text-xl rounded-2xl p-2 gap-4">
              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -66,7 +71,8 @@ const CardNote = () => {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="size-6"
+            className="size-6 cursor-pointer"
+                  onClick={toggle}
           >
             <path
               stroke-linecap="round"
@@ -76,6 +82,25 @@ const CardNote = () => {
           </svg>
         </footer>
       </div>
+        <Modal className="text-4xl" isOpen={open} toggle={toggle}>
+            <ModalHeader  toggle={toggle}>
+     Edit Note
+            </ModalHeader>
+            <ModalBody>
+      <FormGroup>
+        <Label for="title">Title</Label>
+                             <Input type="text" id="title" className="m-2"> </Input>
+                              <Label for="date">Date</Label>
+                                   <Input type="date" className="border rounded m-2" />
+        <Label for="description">Description</Label>
+        <Input type="text" id="description"> </Input>
+      </FormGroup>
+            </ModalBody>
+            <ModalFooter>
+      <Button color="success" onClick={toggle}>Save</Button>
+      {/* <Button color="secondary" onClick={toggle}>Close</Button> */}
+            </ModalFooter>
+          </Modal>
     </div>
   );
 };

@@ -26,20 +26,20 @@ const year = new Date().getFullYear();
       {months.map((month, i) => {
         const daysArray = getMonthDays(year, i);
         return (
-          <div key={i} className="border rounded-lg shadow p-2 bg-white">
-            <h3 className="text-center font-bold mb-2 text-sm">
+          <div key={i} className="border rounded-lg shadow p-2 bg-white ">
+            <h3 className="text-center font-bold mb-2 text-xl">
               {months[i]} {year}
             </h3>
 
             {/* Encabezado de días */}
-            <div className="grid grid-cols-7 text-xs font-bold text-center">
+            <div className="grid grid-cols-7 text-xl font-bold text-center">
               {days.map((d, idx) => (
                 <div key={idx}>{d}</div>
               ))}
             </div>
 
             {/* Días del mes */}
-            <div className="grid grid-cols-7 text-xs text-center">
+            <div className="grid grid-cols-7 text-xl text-center">
               {daysArray.map((d, idx) => (
                 <div key={idx} className="p-1">
                   {d ? d : ""}

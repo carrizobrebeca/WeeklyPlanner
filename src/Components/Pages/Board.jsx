@@ -11,11 +11,42 @@ import CardCalendar from "./CardCalendar";
 import PlannerFood from "./PlannerFood";
 import NewCardReminder from "./NewCardReminder";
 import NewCardNote from "./NewCardNote";
+import Meal from "./Food";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchNote } from "../../Store/noteSlice";
+import { fetchReminder } from "../../Store/reminderSlice";
+import { fetchtodo } from "../../Store/todoSlice";
 
 const Board = () => {
+   
   const [dateTime, setDateTime] = useState(new Date());
   const [activeTab, setActiveTab] = useState("dash");
-  // Actualizar cada segundo
+
+   const dispatch = useDispatch();
+  const allnote = useSelector((state) => state.note.allnote);
+  const status = useSelector((state) => state.note.status);
+const allreminder = useSelector((state) => state.reminder.allreminder);
+const reminderStatus = useSelector((state) => state.reminder.status);
+const todo = useSelector((state) => state.todo.alltodo);
+const todoStatus = useSelector((state) => state.todo.status);
+
+useEffect(() => {
+  if (todoStatus === "idle") {
+    dispatch(fetchtodo());
+  }
+}, [dispatch, todoStatus]);
+  
+useEffect(() => {
+  if (reminderStatus === "idle") {
+    dispatch(fetchReminder());
+  }
+}, [dispatch, reminderStatus]);
+
+useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchNote());
+    }
+  }, [dispatch, status]);
 
     const phrases = [
     "Carpe Diem.-",
@@ -29,7 +60,9 @@ const Board = () => {
      "Success is not final, failure is not fatal: it is the courage to continue that counts.- Winston Churchill-",
   ];
 
-  
+  const meal  =[
+    "Breakfast", "Morning Snack", "Lunch", "Afternoon Snack", "Evening Snack", "Dinner"
+  ]
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -75,7 +108,7 @@ const Board = () => {
       {/* MAIN */}
       <div className="flex flex-1">
         {/* SIDEBAR LEFT */}
-        <aside className="hidden lg:flex lg:w-64 bg-gray-100 p-4 border-r">
+        <aside className="max-w-[137.29px] hidden lg:flex lg:w-64 bg-gray-100 p-4 border-r">
           <nav className="flex flex-col gap-2 w-full">
             <button
               className="bg-yellow-300 rounded-2xl p-4 flex justify-center items-center"
@@ -289,22 +322,36 @@ const Board = () => {
           )}
 
           {activeTab === "todo" && (
-             <div className="w-[2100px] h-[800px]  bg-gray-100 shadow rounded-xl p-4 overflow-x-auto">
-   
-    <div className="flex gap-6 ">
-  <div className="flex-shrink-0 "><Card /></div>
-  <div className="flex-shrink-0"><Card /></div>
-  <div className="flex-shrink-0"><Card /></div>
-  <div className="flex-shrink-0"><Card /></div>
-  <div className="flex-shrink-0"><Card /></div>
-  <div className="flex-shrink-0"><CreateCard /></div>
+            <div className="w-[2100px] h-[800px]  bg-gray-100 shadow rounded-xl p-4 overflow-x-auto">
+   <div className="flex gap-6 "> {todo.map(
+        ({id, title, isCompleted, isFavorite}) => {
+          return (
+    
+  <Card className="flex-shrink-0 "
+  key={id}
+              id={id}
+              title={title}
+              isCompleted={isCompleted}
+              isFavorite={isFavorite}/>
+   )})}
+  <div className="flex-shrink-0"><CreateCard /></div></div>
 </div>
-  
-  </div>
           )}
  {activeTab === "reminder" && (
             <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4">
-              <CardReminder />
+               {allreminder?.map(
+        ({ id, date }) => {
+          return (
+            <CardReminder
+              key={id}
+              id={id}
+             
+              date={date}
+              
+             
+            />
+          )})}
+             
                <NewCardReminder />
               
             </div>
@@ -316,8 +363,10 @@ const Board = () => {
             </div>
           )}
            {activeTab === "food" && (
-            <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4">
-              <PlannerFood />
+            <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 grid grid-row-3 gap-4">
+             
+                                       <Meal/>
+                                            
             </div>
           )}
            {activeTab === "gastos" && (
@@ -327,8 +376,19 @@ const Board = () => {
           )}
            {activeTab === "notes" && (
             <div className="h-[1000px] bg-gray-100 shadow rounded-xl p-4 flex justify-start gap-4">
- <CardNote />
- <CardNote />
+               {allnote?.map(
+        ({ id, title, date, description }) => {
+          return (
+            <CardNote
+              key={id}
+              id={id}
+              title={title}
+              date={date}
+              description={description}
+             
+            />
+          )})}
+ 
  <NewCardNote />
               
 

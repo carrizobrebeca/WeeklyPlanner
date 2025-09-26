@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import {
   Button,
@@ -10,12 +10,24 @@ import {
   Label,
   Input,
 } from "reactstrap";
+import { fetchNewreminderRowId } from "../../Store/reminderRowSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-const CardReminder = () => {
+const CardReminder = ({id, date}) => {
+     const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen(!open);
   const [edit, setEdit] = useState(false);
   const edited = () => setEdit(!edit);
+  const allreminderRow = useSelector((state) => state.reminderRow.allreminderRow);
+const reminderStatus = useSelector((state) => state.reminderRow.status);
+
+
+useEffect(() => {
+  if (reminderStatus === "idle") {
+    dispatch(fetchNewreminderRowId(id));
+  }
+}, [dispatch, reminderStatus]);
   const number = [
     "1",
     "2",
@@ -54,8 +66,10 @@ const CardReminder = () => {
 
   return (
     <div className="w-[450px] h-[400px] bg-white  border-t-4 border-orange-400 rounded-2xl ">
+
+      
       <div className="p-4 flex flex-col justify-between h-full rounded-2xl">
-        <header className="flex justify-startfont-bold pl-2 text-xl  rounded-2xl p-2">
+        <header className="flex justify-startfont-bold pl-2 text-xl  rounded-2xl p-2" key={id}>
           <div className="flex items-center pr-4 pl-4  text-orange-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -72,29 +86,20 @@ const CardReminder = () => {
               />
             </svg>
           </div>
-          <h2 className="text-red-400 pr-4">Day</h2>
-          <h2 className="text-blue-400">Number</h2>
+          <h2 className="text-red-400 pr-4">  {new Date(date).toLocaleDateString("en-US", { weekday: "long" })}</h2>
+          <h2 className="text-blue-400" >{date.split("-")[2]}</h2>
         </header>
         <div className="h-[240px] overflow-y-auto">
           <div
             onClick={edited}
             className="newdaily border-l-4 border-green-500 p-2 m-2  bg-green-200 text-green-400 "
           >
-            <h2>Gym</h2>
-            <h2 className="text-green-500 ">10:00-11:00 AM</h2>
+            <h2>{allreminderRow.name}</h2>
+            <h2 className="text-green-500 ">{allreminderRow.timeStart
+}</h2>
           </div>
 
-          <div
-            onClick={edited}
-            className="newdaily border-l-4 border-green-500 p-2 m-2  bg-green-200 text-green-400 "
-          >
-            <h2>Gym</h2>
-            <h2 className="text-green-500 ">10:00-11:00 AM</h2>
-          </div>
-          <div className="newdaily border-l-4 border-orange-500 p-2 m-2  bg-orange-200 text-orange-400 ">
-            <h2>Padel</h2>
-            <h2 className="text-orange-500 ">2:30-3:30 PM</h2>
-          </div>
+         
         </div>
         <footer className="flex bg-white items-right rounded-2xl p-2 gap-4">
           <svg
@@ -166,14 +171,17 @@ const CardReminder = () => {
               <ModalHeader edited={edited}>Edit Daily</ModalHeader>
               <ModalBody>
                 <FormGroup>
+                   
                   <Label for="title">Title</Label>
                   <Input type="text" id="title">
                     
                   </Input>
-                  <Label for="hour">Hour</Label>
-                  <Input type="time" id="hour">
+                  <Label for="hour" className="flex justify-start">Hour:</Label>
+                  <Label for="from">From</Label>
+                  <Input type="time" id="from">
                   
-                  </Input>
+                  </Input><Label for="to">To</Label>
+                  <Input type="time" id="to"></Input>
                 </FormGroup>
               </ModalBody>
               <ModalFooter>

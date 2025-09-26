@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input } from "reactstrap";
 
-const CardNote = () => {
+const CardNote = ({ title, date, description  }) => {
   
    const [open, setOpen] = useState(false); 
   const toggle = () => setOpen(!open);
@@ -10,31 +10,17 @@ const CardNote = () => {
     <div className="w-[450px] h-[253px] bg-white  border-t-4 border-green-200 rounded-2xl ">
       <div className="p-4 grid-row items-center rounded-2xl">
         <header className="flex justify-center ">
-          <h2 className="font-bold pl-2 text-xl bg-green-200 rounded-2xl p-2">Title</h2>
+          <h2 className="font-bold pl-2 text-xl bg-green-200 rounded-2xl p-2">{ title}</h2>
           
         </header>
         <div className="">
           <div className="bg-white grid grid-flow-col rounded-2xl p-2 m-2  ">
-           <input type="text" className="h-[100px] text-xl flex justify-center"/>
+           <input type="text" className="h-[100px] text-xl flex justify-center" placeholder={description  }/>
           </div>
          
         </div>
-        <footer className=" flex bg-white items-right text-xl rounded-2xl p-2 gap-4">
-             <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
-                />
-              </svg>
-              24/08/2025
+        <footer className=" flex bg-white items-right text-sm rounded-2xl pt-0 p-2 gap-4">
+             <h2 className="text-sm">{ date  }</h2>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
